@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AppQuota()
+                    AppQuota(appList = getApps())
                 }
             }
         }
@@ -51,16 +51,26 @@ class MainActivity : ComponentActivity() {
             pm.getInstalledApplications(0)
         }
 
-        for (packageInfo in packages) {
-            Log.d(TAG, "Package name:" + packageInfo.packageName)
-        }
+//        for (packageInfo in packages) {
+//            Log.d(TAG, "Package name:" + packageInfo.packageName)
+//        }
         return packages
     }
 }
 
 @Composable
-fun AppQuota(modifier: Modifier = Modifier) {
-    Text("Test")
+fun AppQuota(appList: MutableList<ApplicationInfo> , modifier: Modifier = Modifier) {
+    Column(verticalArrangement = Arrangement.Center) {
+        Button(onClick = { /*TODO should display list. prob need navigation*/
+        }) {
+            Text("Select an app to block")
+        }
+        LazyColumn {
+            items(appList) {app ->
+                Text(text = app.packageName)
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
