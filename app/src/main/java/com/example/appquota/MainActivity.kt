@@ -11,14 +11,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import android.os.Build
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.appquota.ui.theme.AppQuotaTheme
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     fun getApps(): MutableList<ApplicationInfo> {
         // gets all apps including system apps. baal ho for now
-        val context: Context = this
-        val pm = context.packageManager
+        // bunch of different contexts can be used. directly accessing packageManager property uses the Activity context
+        val pm = packageManager
         // due to API changes in android 13 (TIRAMISU/ API 33),
         val packages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             pm.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(0L))
