@@ -32,9 +32,9 @@ import kotlinx.coroutines.launch
 const val TAG = "DataStoreExample"
 suspend fun logBlockedAppPreference() {
     MainActivity.getAppContext().dataStore.data
-        .map { preferences ->
-            preferences[BLOCKED_APP_KEY] ?: "Default Value if Blocked App is not set"
-        }
+//        .map { preferences ->
+//            preferences[BLOCKED_APP_KEY] ?: "Default Value if Blocked App is not set"
+//        }
         .catch { exception ->
             if (exception is IOException) {
                 Log.e(TAG, "Error reading preferences.", exception)

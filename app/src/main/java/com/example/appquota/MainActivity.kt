@@ -1,6 +1,7 @@
 package com.example.appquota
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -41,18 +42,28 @@ class MainActivity : ComponentActivity() {
             return instance!!.applicationContext
         }
         fun getApps(): List<AppNameAndIcon> {
-            // gets all apps including system apps. baal ho for now
             val pm = getAppContext().packageManager
+            val mainIntent = Intent(Intent.ACTION_MAIN, null)
+            mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+
             // different flags need to be passed due to API changes in android 13 (TIRAMISU/ API 33)
             val packages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                pm.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(0L))
+                pm.queryIntentActivities(mainIntent, PackageManager.ResolveInfoFlags.of(0L))
             } else {
-                pm.getInstalledApplications(0)
+                pm.queryIntentActivities(mainIntent, 0)
             }
 
             val appInfoMinimal: List<AppNameAndIcon> = packages.map { app ->
+                val resources =  pm.getResourcesForApplication(app.activityInfo.applicationInfo)
+                val appName = if (app.activityInfo.labelRes != 0) {
+                    resources.getString(app.activityInfo.labelRes)
+                } else {
+                    app.activityInfo.applicationInfo.loadLabel(pm).toString()
+                }
 //                TODO might have to use app.packageName for comparing open apps later idk
-                AppNameAndIcon(pm.getApplicationLabel(app).toString(), app.icon)
+//                val packageName = resolveInfo.activityInfo.packageName
+                val appIcon = app.activityInfo.loadIcon(pm)
+                AppNameAndIcon(appName, app.icon) // this is returned to create a list of type AppNameAndIcon
             }
             return appInfoMinimal
         }
