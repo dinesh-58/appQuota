@@ -5,6 +5,7 @@
 <!--    permission is required for Android 11+ -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -16,10 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppQuota"
         tools:targetApi="31">
+        <service
+            android:name=".CheckRunningAppForegroundService"
+            android:foregroundServiceType="dataSync"
+            android:stopWithTask="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.AppQuota">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

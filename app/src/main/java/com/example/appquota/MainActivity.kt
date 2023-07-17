@@ -25,7 +25,7 @@ import com.example.appquota.ui.theme.AppQuotaTheme
 
 const val USER_PREFERENCES_NAME = "user_preferences"
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCES_NAME)
-val BLOCKED_APP_KEY = stringPreferencesKey("No app selected")
+val BLOCKED_APP_KEY = stringPreferencesKey("")
 suspend fun setBlockedApp(appLabel: String) {
     val context = MainActivity.getAppContext()
     context.dataStore.edit { preferences ->
@@ -84,6 +84,13 @@ class MainActivity : ComponentActivity() {
                     AppQuota()
                 }
             }
+        }
+        // Start the foreground service
+        val serviceIntent = Intent(this, CheckRunningAppForegroundService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            applicationContext.startForegroundService(serviceIntent)
+        } else {
+            applicationContext.startService(serviceIntent)
         }
     }
 
