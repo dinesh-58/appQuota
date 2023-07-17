@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AppQuota</string>
-    <string name="accessibility_service_label">App launch tracker </string>
+    <string name="accessibility_service_label">AppQuota</string>
     <string name="accessibility_service_description">This is used to check if a blocked app is launched</string>
 </resources>
