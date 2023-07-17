@@ -32,9 +32,10 @@ import kotlinx.coroutines.launch
 const val TAG = "DataStoreExample"
 suspend fun logBlockedAppPreference() {
     MainActivity.getAppContext().dataStore.data
-//        .map { preferences ->
-//            preferences[BLOCKED_APP_KEY] ?: "Default Value if Blocked App is not set"
-//        }
+        .map { preferences ->
+            preferences[BLOCKED_APP_KEY] ?: "Default Value if Blocked App is not set"
+        }
+//            hmmm commenting out the map function would cause previous value of preference to be shown as well.
         .catch { exception ->
             if (exception is IOException) {
                 Log.e(TAG, "Error reading preferences.", exception)
@@ -82,12 +83,12 @@ fun SelectBlockableAppScreen(navController: NavController) {
 //            TODO change to checkbox & add a confirm button (onclick = writes & navigates)
                 Row(modifier = Modifier
                     .selectable(
-                        selected = (app.label == selectedOption),
+                        selected = (app.packageName == selectedOption),
                         role = Role.RadioButton
-                    ) { onOptionSelected(app.label) }
+                    ) { onOptionSelected(app.packageName) }
                 ) {
                     RadioButton(
-                        selected = (app.label == selectedOption),
+                        selected = (app.packageName == selectedOption),
                         onClick = null //null recommended for accessibility with screenreaders
                     )
 //                app.icon // TODO prob need to display this too as drawable or something

@@ -33,7 +33,7 @@ suspend fun setBlockedApp(appLabel: String) {
     }
 }
 
-class AppNameAndIcon(val label: String, val icon: Int)
+class AppNameAndIcon(val packageName: String, val label: String, val icon: Int)
 class MainActivity : ComponentActivity() {
     companion object {
         private var instance: MainActivity? = null
@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
             }
 
             val appInfoMinimal: List<AppNameAndIcon> = packages.map { app ->
+                val packageName = app.activityInfo.packageName
                 val resources =  pm.getResourcesForApplication(app.activityInfo.applicationInfo)
                 val appName = if (app.activityInfo.labelRes != 0) {
                     resources.getString(app.activityInfo.labelRes)
@@ -63,7 +64,7 @@ class MainActivity : ComponentActivity() {
 //                TODO might have to use app.packageName for comparing open apps later idk
 //                val packageName = resolveInfo.activityInfo.packageName
                 val appIcon = app.activityInfo.loadIcon(pm)
-                AppNameAndIcon(appName, app.icon) // this is returned to create a list of type AppNameAndIcon
+                AppNameAndIcon(packageName, appName, app.icon) // this is returned to create a list of type AppNameAndIcon
             }
             return appInfoMinimal
         }
