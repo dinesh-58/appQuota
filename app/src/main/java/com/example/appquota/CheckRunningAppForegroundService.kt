@@ -1,5 +1,8 @@
 package com.example.appquota
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+import android.app.ActivityManager.RunningTaskInfo
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -26,7 +29,6 @@ class CheckRunningAppForegroundService: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 //        TODO check current foreground app here, before calling startForegroundService()
 
-        // Start your foreground service here
         startForegroundService()
         return START_STICKY
     }
@@ -56,10 +58,11 @@ class CheckRunningAppForegroundService: Service() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        return ( NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("AppQuota")
             .setContentText("AppQuota is running in the background")
-//            .setSmallIcon(androidx.core.R.drawable.notification_template_icon_low_bg)
-            .build()
+//            .setSmallIcon(R.drawable.ic_launcher_foreground)
+//                android sets a default notif icon if not specified
+            .build() )
     }
 }
