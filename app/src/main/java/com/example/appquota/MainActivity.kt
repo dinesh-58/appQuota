@@ -86,16 +86,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-//        checkNotificationPermission()   // start foreground service only if notification perms set?
-//          TODO prompt user for notification permissions if not set. related API changes in android 8 so need to handle that too
-//        for now, just set manually
-        // Start the foreground service
-//        val serviceIntent = Intent(this, CheckRunningAppForegroundService::class.java)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            applicationContext.startForegroundService(serviceIntent)
-//        } else {
-//            applicationContext.startService(serviceIntent)
-//        }
     }
 
 }
