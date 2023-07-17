@@ -61,8 +61,6 @@ class MainActivity : ComponentActivity() {
                 } else {
                     app.activityInfo.applicationInfo.loadLabel(pm).toString()
                 }
-//                TODO might have to use app.packageName for comparing open apps later idk
-//                val packageName = resolveInfo.activityInfo.packageName
                 val appIcon = app.activityInfo.loadIcon(pm)
                 AppNameAndIcon(packageName, appName, app.icon) // this is returned to create a list of type AppNameAndIcon
             }
