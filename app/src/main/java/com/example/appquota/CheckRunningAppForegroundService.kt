@@ -1,8 +1,5 @@
 package com.example.appquota
 
-import android.app.ActivityManager
-import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
-import android.app.ActivityManager.RunningTaskInfo
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager

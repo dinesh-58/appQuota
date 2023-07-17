@@ -25,7 +25,7 @@ import com.example.appquota.ui.theme.AppQuotaTheme
 
 const val USER_PREFERENCES_NAME = "user_preferences"
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCES_NAME)
-val BLOCKED_APP_KEY = stringPreferencesKey("")
+val BLOCKED_APP_KEY = stringPreferencesKey("BLOCKED_APP_KEY")
 suspend fun setBlockedApp(appLabel: String) {
     val context = MainActivity.getAppContext()
     context.dataStore.edit { preferences ->
@@ -90,12 +90,12 @@ class MainActivity : ComponentActivity() {
 //          TODO prompt user for notification permissions if not set. related API changes in android 8 so need to handle that too
 //        for now, just set manually
         // Start the foreground service
-        val serviceIntent = Intent(this, CheckRunningAppForegroundService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            applicationContext.startForegroundService(serviceIntent)
-        } else {
-            applicationContext.startService(serviceIntent)
-        }
+//        val serviceIntent = Intent(this, CheckRunningAppForegroundService::class.java)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            applicationContext.startForegroundService(serviceIntent)
+//        } else {
+//            applicationContext.startService(serviceIntent)
+//        }
     }
 
 }
