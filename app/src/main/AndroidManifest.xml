@@ -5,7 +5,6 @@
 <!--    permission is required for Android 11+ -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
@@ -18,10 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppQuota"
         tools:targetApi="31">
-        <service
-            android:name=".CheckRunningAppForegroundService"
-            android:foregroundServiceType="dataSync"
-            android:stopWithTask="false" />
         <service
             android:name=".AppLaunchAccessibilityService"
             android:label="@string/accessibility_service_label"
