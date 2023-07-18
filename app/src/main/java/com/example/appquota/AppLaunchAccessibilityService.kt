@@ -27,17 +27,15 @@ class AppLaunchAccessibilityService : AccessibilityService() {
             val packageName = event.packageName?.toString()
             if (packageName != lastPackageName) {
                 // done because TYPE_WINDOW_STATE_CHANGED also triggers when activity changed in the
-                // same aop & we only need to detect app switching
+                // same app & we only need to detect app switching
                 lastPackageName = packageName
-                Toast.makeText(this, "app switch detected", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "app switch detected", Toast.LENGTH_SHORT).show()
                 runBlocking {
                     blockedApp = serviceContext.dataStore.data.first()[BLOCKED_APP_KEY]
                 }
                 if (blockedApp.equals(packageName)) {
                     Log.d("DataStoreExample", "If you see this, then fuck yeah")
-//                    comparison works properly. It's just the toast that doesn't show for some reason
                     Toast.makeText(this, "switch to blocked app detected", Toast.LENGTH_SHORT).show()
-                    // TODO display blocked screen overlay
 
                     val intent = Intent(this, AppBlockedActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -45,7 +43,6 @@ class AppLaunchAccessibilityService : AccessibilityService() {
                     // Add any extra data to the intent if needed
                     // intent.putExtra("key", value)
 
-                    // Start the activity
                     startActivity(intent)
                 }
             }

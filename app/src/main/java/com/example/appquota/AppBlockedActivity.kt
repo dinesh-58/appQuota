@@ -20,6 +20,7 @@ class AppBlockedActivity: ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    AppBlockedScreen()
                 }
             }
         }
