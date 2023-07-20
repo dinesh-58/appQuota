@@ -7,19 +7,20 @@ import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
+var firstLaunch = true
 class AppLaunchAccessibilityService : AccessibilityService() {
     private lateinit var serviceContext: Context
     private var lastPackageName: String? = null
     private var blockedApp: String? = null
-    private var firstLaunch = true
     private var remainingBlockTime: Long = 0
     // TODO rename this to blockTime cause needs to be constant value instead of changing?
     private var countDownTimer: CountDownTimer? = null
-    private var appBlockedActivity: Activity? = null
     private var blockTimeFinished = false
     private var intent: Intent? = null
 
@@ -43,20 +44,22 @@ class AppLaunchAccessibilityService : AccessibilityService() {
                 if (blockedApp.equals(packageName)) {
                     Log.d("DataStoreExample", "If you see this, then fuck yeah")
                     Toast.makeText(this, "switch to blocked app detected", Toast.LENGTH_SHORT).show()
-                    intent = Intent(this, AppBlockedActivity::class.java)
+//                    intent = Intent(this, AppBlockedActivity::class.java)
                     if (firstLaunch) {
-                        firstLaunch = false
-//                        remainingBlockTime = 1200000  // 20 minutes in milliseconds
-                        remainingBlockTime = 15000  // 5seconds
+//                        TODO prompt user with time picker
+                        var setQuotaIntent = Intent(this, SetQuotaActivity::class.java)
+                        setQuotaIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(setQuotaIntent)
+
 //                        startTimer()
 //                    } else {
 //                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     }
-                    intent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//                    intent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
 //                    TODO move intent initialization to onCreate instead? because this runs on every switch to blocked app
 //                    intent?.putExtra("block_time_finished", blockTimeFinished)
-                    startActivity(intent)
+//                    startActivity(intent) // TODO launch this only when countdown finishes
                 }
             }
         }
@@ -72,7 +75,7 @@ class AppLaunchAccessibilityService : AccessibilityService() {
 
         countDownTimer = object : CountDownTimer(remainingBlockTime, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                intent?.putExtra("remaining_seconds", millisUntilFinished / 1000)
+//                intent?.putExtra("remaining_seconds", millisUntilFinished / 1000)
                 // You could update UI with the remaining time if needed
             }
 

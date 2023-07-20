@@ -44,6 +44,9 @@
         <activity
             android:name=".AppBlockedActivity"
             android:theme="@style/Theme.AppQuota" />
+        <activity
+            android:name=".SetQuotaActivity"
+            android:theme="@style/Theme.AppQuota" />
     </application>
 
 </manifest>

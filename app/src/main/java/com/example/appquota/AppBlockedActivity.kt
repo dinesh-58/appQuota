@@ -2,11 +2,17 @@ package com.example.appquota
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.transition.Slide
+import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.appquota.ui.theme.AppQuotaTheme
 
@@ -50,7 +57,6 @@ class AppBlockedActivity: ComponentActivity() {
 @Composable
 fun AppBlockedScreen(modifier: Modifier = Modifier) {
     var countdownTime by remember { mutableStateOf(10) }
-
     DisposableEffect(Unit) {
         val timer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -71,6 +77,9 @@ fun AppBlockedScreen(modifier: Modifier = Modifier) {
     }
 //    val remainingTimeState = rememberUpdatedState(remainingSeconds)
     Text("You can't access this app for $countdownTime more seconds")
+
+
+
 }
 
 @Preview
