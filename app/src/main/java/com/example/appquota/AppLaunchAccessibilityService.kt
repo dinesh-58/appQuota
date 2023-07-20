@@ -46,7 +46,6 @@ class AppLaunchAccessibilityService : AccessibilityService() {
                     Toast.makeText(this, "switch to blocked app detected", Toast.LENGTH_SHORT).show()
 //                    intent = Intent(this, AppBlockedActivity::class.java)
                     if (firstLaunch) {
-//                        TODO prompt user with time picker
                         var setQuotaIntent = Intent(this, SetQuotaActivity::class.java)
                         setQuotaIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(setQuotaIntent)

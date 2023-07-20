@@ -40,7 +40,6 @@ class SetQuotaActivity: ComponentActivity() {
 
 @Composable
 fun SetQuotaScreen(modifier: Modifier = Modifier) {
-    var firstLaunch by remember { mutableStateOf(true)}
     var sliderPosition by remember { mutableStateOf(0) }
     val activity = (LocalContext.current as? Activity)
 
