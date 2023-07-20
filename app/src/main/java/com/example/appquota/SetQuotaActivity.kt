@@ -1,5 +1,6 @@
 package com.example.appquota
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.example.appquota.ui.theme.AppQuotaTheme
 
 var currentQuota: Long by mutableStateOf(0)
@@ -40,6 +42,8 @@ class SetQuotaActivity: ComponentActivity() {
 fun SetQuotaScreen(modifier: Modifier = Modifier) {
     var firstLaunch by remember { mutableStateOf(true)}
     var sliderPosition by remember { mutableStateOf(0) }
+    val activity = (LocalContext.current as? Activity)
+
     Column() {
 //      if (firstLaunch) {
         Text("How long do you want to use this app?")
@@ -58,6 +62,7 @@ fun SetQuotaScreen(modifier: Modifier = Modifier) {
         Button(onClick = {
                 currentQuota = sliderPosition.toLong() * 60 * 1000
                 firstLaunch = false
+                activity?.finish()
             // TODO finish this activity?
             }
             ) {
