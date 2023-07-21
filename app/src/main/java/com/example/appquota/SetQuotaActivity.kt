@@ -20,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.appquota.ui.theme.AppQuotaTheme
 
-var currentQuota: Long by mutableStateOf(0)
 
 class SetQuotaActivity: ComponentActivity() {
+    companion object {
+        var currentQuotaMillis: Long = 0
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -44,7 +46,6 @@ fun SetQuotaScreen(modifier: Modifier = Modifier) {
     val activity = (LocalContext.current as? Activity)
 
     Column() {
-//      if (firstLaunch) {
         Text("How long do you want to use this app?")
         Text(text = sliderPosition.toString() + " minutes")
 
@@ -52,21 +53,14 @@ fun SetQuotaScreen(modifier: Modifier = Modifier) {
             value = sliderPosition.toFloat(),
             onValueChange = {sliderPosition = it.toInt()},
             valueRange = 0f..60f,
-//                onValueChangeFinished = {
-//                    // launch some business logic update with the state you hold
-//                    // viewModel.updateSelectedSliderValue(sliderPosition)
-//                },
             steps = 60
         )
         Button(onClick = {
-                currentQuota = sliderPosition.toLong() * 60 * 1000
-                firstLaunch = false
-                activity?.finish()
-            // TODO finish this activity?
-            }
-            ) {
-                Text("Confirm")
-            }
-//        }
+            SetQuotaActivity.currentQuotaMillis = sliderPosition.toLong() * 60 * 1000
+            firstLaunch = false
+            activity?.finish()
+        }) {
+            Text("Confirm")
+        }
     }
 }
