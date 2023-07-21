@@ -4,8 +4,10 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -16,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.appquota.ui.theme.AppQuotaTheme
@@ -45,11 +48,12 @@ fun SetQuotaScreen(modifier: Modifier = Modifier) {
     var sliderPosition by remember { mutableStateOf(0) }
     val activity = (LocalContext.current as? Activity)
 
-    Column() {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text("How long do you want to use this app?")
         Text(text = sliderPosition.toString() + " minutes")
 
         Slider(
+            modifier = Modifier.fillMaxWidth(0.8f),
             value = sliderPosition.toFloat(),
             onValueChange = {sliderPosition = it.toInt()},
             valueRange = 0f..60f,

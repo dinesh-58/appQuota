@@ -48,9 +48,8 @@ class AppLaunchAccessibilityService : AccessibilityService() {
                 runBlocking { blockedApp = serviceContext.dataStore.data.first()[BLOCKED_APP_KEY] }
 
                 if (blockedApp.equals(packageName)) {
-                    Log.d("DataStoreExample", "If you see this, then fuck yeah")
-                    Toast.makeText(this, "switch to blocked app detected", Toast.LENGTH_SHORT)
-                        .show()
+//                    Log.d("DataStoreExample", "If you see this, then fuck yeah")
+//                    Toast.makeText(this, "switch to blocked app detected", Toast.LENGTH_SHORT).show()
 //                    intent = Intent(this, AppBlockedActivity::class.java)
                     if (firstLaunch) {
                         var setQuotaIntent = Intent(this, SetQuotaActivity::class.java)
